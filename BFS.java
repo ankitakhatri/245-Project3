@@ -16,9 +16,12 @@ public class BFS
 		//i is the node we are visiting-- traversing through the columns in the row, and source is the row we are in
 		int i, elem;
  
-        //visited[source] = 1;
+        visited[source] = 1;
         queue.add(source);
 
+        //while the queue is not empty, iterate from index 0 to max(nodenum)
+        //check if the ratings are >= to minrating, if they have been visited before, and if they are not equal to 11(no weight)
+        //also check if they are not equal to the source
         while (!queue.isEmpty())
         {
             elem = queue.remove();

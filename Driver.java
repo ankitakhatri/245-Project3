@@ -71,6 +71,15 @@ public class Driver
 
      	//create 2d array with max dimensions
      	int [][] adjmatrix = new int[max+1][max+1];
+        //fill whole array with -11 to symbolize no connection
+        for (int row = 0; row<adjmatrix.length; row++) 
+        {
+            for (int col = 0; col<adjmatrix[row].length; col++) 
+            {
+                adjmatrix[row][col] = 11;
+            }
+        }
+
         int a=0;
         int b=0;
         int c=0;
@@ -83,7 +92,7 @@ public class Driver
             c = data[index+2];
             adjmatrix[a][b] = c;
         }
-        System.out.println (max);
+        //System.out.println (max);
         //System.out.println(adjmatrix[1128][13]);
 
         //now my adjacency matrix is filled, get user input and perform BFS to find all the nodes with acceptable ratings
@@ -92,12 +101,24 @@ public class Driver
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the User ID: ");
         int source = sc.nextInt();
+        //input validation if source is not an existed node, or rating is below -10 or greater than 10
+        if (source > max)
+        {
+            System.out.println("User id is not valid.");
+            System.exit(0);
+        }
         System.out.println("Enter the minimum acceptable rating: ");
         int minrating = sc.nextInt();
-
-        BFS bfs = new BFS();
-        bfs.search(adjmatrix, source, minrating, max+1);
-
+        if (minrating < -11 || minrating > 11)
+        {
+            System.out.println("Rating is not valid");
+            System.exit(0);
+        }
+        else
+        {
+            BFS bfs = new BFS();
+            bfs.search(adjmatrix, source, minrating, max+1);
+        }
 
 
 	}

@@ -16,29 +16,23 @@ public class BFS
 		//i is the node we are visiting-- traversing through the columns in the row, and source is the row we are in
 		int i, elem;
  
-        visited[source] = 1;
+        //visited[source] = 1;
         queue.add(source);
 
         while (!queue.isEmpty())
         {
             elem = queue.remove();
-            i = elem;
-            //System.out.println(i);
+            i = 0;
             while (i < nodenum)
             {
-                // if (adjmatrix[elem][i] != 0)
-                // {
-                // 	System.out.println (adjmatrix[elem][i]);
-                // }
-    
-                if (adjmatrix[elem][i] >= minrating && visited[i] == 0)
+                if (adjmatrix[elem][i] >= minrating && visited[i]==0 && adjmatrix[elem][i]!=11 && i!=source)
                 {
                     queue.add(i);
                     visited[i] = 1;
-                    //System.out.println(i);
+                    System.out.println(i);
                 }
                 i++;
             }
         }
-	}
+	}     
 }

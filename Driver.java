@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import java.text.*;
 
 public class Driver 
 {
@@ -92,34 +93,81 @@ public class Driver
             c = data[index+2];
             adjmatrix[a][b] = c;
         }
+        //test code print matrix
+        // for (int[] x : adjmatrix)
+        // {
+        //     for (int y : x)
+        // {
+        //     System.out.print(y + " ");
+        //}
+        //     System.out.println();
+//}
         //System.out.println (max);
         //System.out.println(adjmatrix[1128][13]);
 
         //now my adjacency matrix is filled, get user input and perform BFS to find all the nodes with acceptable ratings
         //get user input for source and min acceptable rating
 
+        //code to run the BFS, can just comment this out to make that work
+
+        // Scanner sc = new Scanner(System.in);
+        // System.out.println("Enter the User ID: ");
+        // int source = sc.nextInt();
+        // //input validation if source is not an existed node, or rating is below -10 or greater than 10
+        // if (source > max || source < 0)
+        // {
+        //     System.out.println("User id is not valid.");
+        //     System.exit(0);
+        // }
+        // System.out.println("Enter the minimum acceptable rating: ");
+        // int minrating = sc.nextInt();
+        // if (minrating < -11 || minrating > 11)
+        // {
+        //     System.out.println("Rating is not valid");
+        //     System.exit(0);
+        // }
+        // else
+        // {
+        //     BFS bfs = new BFS();
+        //     bfs.search(adjmatrix, source, minrating, max+1);
+        // }
+
+        //code to run DFS
+
+        //get input for source and destination, input validation
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the User ID: ");
-        int source = sc.nextInt();
-        //input validation if source is not an existed node, or rating is below -10 or greater than 10
-        if (source > max)
+        System.out.println("Enter the source node: ");
+        int src = sc.nextInt();
+        if (src > max || src < 0)
         {
             System.out.println("User id is not valid.");
             System.exit(0);
         }
-        System.out.println("Enter the minimum acceptable rating: ");
-        int minrating = sc.nextInt();
-        if (minrating < -11 || minrating > 11)
+        System.out.println("Enter the destination node: ");
+        int dst = sc.nextInt();
+        if (dst > max || dst < 0)
         {
-            System.out.println("Rating is not valid");
+            System.out.println("User id is not valid.");
             System.exit(0);
         }
-        else
-        {
-            BFS bfs = new BFS();
-            bfs.search(adjmatrix, source, minrating, max+1);
-        }
 
+        //create instance of DFS and run it with the necessary parameters
+        DFS dfs = new DFS();
+        int[] visited = new int[max+1];
+        ArrayList<Integer> path = new ArrayList();
+        ArrayList<Double> averages = new ArrayList();
+        dfs.search(adjmatrix, visited, src, dst, path, averages);
+
+        //print average of all the averages
+        int total = 0;
+        for (int j = 0; j<averages.size(); j++)
+        {
+            total += averages.get(j);
+        }
+        //format to 2 decimal places
+        DecimalFormat df = new DecimalFormat(".##");
+        double average = (double)total/(averages.size());
+        System.out.println("Total Average: " + df.format(average));
 
 	}
 }
